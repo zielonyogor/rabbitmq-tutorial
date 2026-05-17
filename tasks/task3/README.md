@@ -32,11 +32,13 @@ Three modes via `sys.argv[1]`:
 
 ## Run
 
+From the project root:
+
 ```bash
-python subscriber.py order                         # Terminal 1
-python subscriber.py alerts                        # Terminal 2
-python producer.py order.created.eu  "Order #1"   # Terminal 3
-python producer.py payment.failed.eu "Card error"
+docker compose run --rm app python tasks/task3/subscriber.py order                           # Terminal 1
+docker compose run --rm app python tasks/task3/subscriber.py alerts                          # Terminal 2
+docker compose run --rm app python tasks/task3/producer.py order.created.eu  "Order #1"      # Terminal 3
+docker compose run --rm app python tasks/task3/producer.py payment.failed.eu "Card error"
 ```
 
-See `solution/` for reference.
+Or, with local Python, `cd tasks/task3` first and run the scripts as `python subscriber.py order`, etc.

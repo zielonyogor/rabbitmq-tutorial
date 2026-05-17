@@ -42,7 +42,7 @@ Producer ──► Exchange ──► Queue ──► Consumer
 | **Queue**    | Buffer that stores messages until consumed                  |
 | **Consumer** | Application that receives and processes messages            |
 | **Binding**  | Rule that links an exchange to a queue                      |
-| **Routing Key** | Label on a message used by exchanges to route it         |
+| **Routing Key** | Label on a message; used by direct and topic exchanges to route it |
 
 ---
 
@@ -121,11 +121,13 @@ Message is dropped (or sent to a dead-letter exchange if configured).
 
 **Three layers of durability:**
 
-| Setting                  | Meaning                                              |
-|--------------------------|------------------------------------------------------|
-| `durable=True` on queue  | Queue survives broker restart                        |
-| `delivery_mode=2`        | Message is persisted to disk                         |
-| Manual ACK               | Message stays in queue until consumer confirms it    |
+| Setting                  | Meaning                                                              |
+|--------------------------|----------------------------------------------------------------------|
+| `durable=True` on queue  | Queue survives broker restart                                        |
+| `delivery_mode=2`        | Message is persisted to disk (only effective on a durable queue)     |
+| Manual ACK               | Message stays in queue until consumer confirms it                    |
+
+You need **all three** together to survive a broker crash: a durable queue, persistent messages, and manual ACK from the consumer.
 
 **Auto-ACK vs Manual ACK:**
 
@@ -145,8 +147,8 @@ def callback(ch, method, properties, body):
 
 ```
 TCP Connection
-└── Channel 1  (lightweight virtual connection)
-└── Channel 2
+├── Channel 1  (lightweight virtual connection)
+├── Channel 2
 └── Channel 3
 ```
 
@@ -217,8 +219,8 @@ RabbitMQ ships with a web UI at **http://localhost:15672**
 - Work queues with multiple competing consumers
 
 **Not a good fit:**
-- You need exactly-once delivery with strict ordering at very high scale → Kafka
-- Simple in-process job queue → Celery with Redis, BullMQ
+- High-throughput append-only event log with partitioned ordering and long retention → Kafka
+- Single-process background jobs with no broker → Python `queue.Queue`, `concurrent.futures`, or RQ
 - RPC where you need a synchronous response immediately
 
 ---

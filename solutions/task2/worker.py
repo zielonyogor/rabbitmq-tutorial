@@ -1,15 +1,11 @@
-import time
 import pika
 
 EXCHANGE = 'logs_ex'
 
 
 def on_message(channel, method, properties, body):
-    dots = body.count(b'.')
-    print(f"[task_worker] Processing: {body.decode()}")
-    time.sleep(dots)
+    print(f"[task_worker] Received: {body.decode()}")
     channel.basic_ack(delivery_tag=method.delivery_tag)
-    print("[task_worker] Done")
 
 
 def main():

@@ -22,9 +22,11 @@ Fill in the `TODO` sections in both files.
 
 ## Run
 
+From the project root:
+
 ```bash
-python consumer.py           # Terminal 1
-python producer.py "Hello!"  # Terminal 2
+docker compose run --rm app python tasks/task1/consumer.py            # Terminal 1
+docker compose run --rm app python tasks/task1/producer.py "Hello!"   # Terminal 2
 ```
 
-See `solution/` for reference.
+Or, with local Python, `cd tasks/task1` first and run `python consumer.py` / `python producer.py "Hello!"`.

@@ -7,7 +7,6 @@ BINDING_KEYS = {
     'order':  'order.#',
     'alerts': '*.failed.*',
     'eu':     '#.eu',
-    'all':    '#',
 }
 
 

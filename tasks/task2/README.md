@@ -25,11 +25,13 @@ Fill in the `TODO` sections in all three files.
 
 ## Run
 
+From the project root:
+
 ```bash
-python worker.py                          # Terminal 1
-python error_worker.py                    # Terminal 2
-python producer.py info  "User logged in" # Terminal 3
-python producer.py error "DB is down"
+docker compose run --rm app python tasks/task2/worker.py                            # Terminal 1
+docker compose run --rm app python tasks/task2/error_worker.py                      # Terminal 2
+docker compose run --rm app python tasks/task2/producer.py info  "User logged in"   # Terminal 3
+docker compose run --rm app python tasks/task2/producer.py error "DB is down"
 ```
 
-See `solution/` for reference.
+Or, with local Python, `cd tasks/task2` first and run the scripts as `python worker.py`, etc.

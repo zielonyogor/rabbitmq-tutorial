@@ -8,7 +8,8 @@
 ```
 rabbitmq-tutorial/
 ├── presentation.md          ← lecture slides (15–30 min)
-├── docker-compose.yml       ← RabbitMQ broker
+├── docker-compose.yml       ← RabbitMQ broker + app container
+├── Dockerfile               ← Python image with pika installed
 ├── requirements.txt         ← Python dependencies (pika)
 │
 ├── tasks/
@@ -42,7 +43,7 @@ rabbitmq-tutorial/
 docker compose up -d rabbitmq
 ```
 
-Wait ~10 seconds, then open the management UI:
+Wait until `docker compose ps` shows the broker as **healthy** (usually 10–20 s), then open the management UI:
 **http://localhost:15672** — login: `student` / `student123`
 
 ### 2. Run scripts
