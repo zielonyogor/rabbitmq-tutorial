@@ -39,17 +39,25 @@ rabbitmq-tutorial/
 ### 1. Start RabbitMQ
 
 ```bash
-docker compose up -d
+docker compose up -d rabbitmq
 ```
 
 Wait ~10 seconds, then open the management UI:
 **http://localhost:15672** — login: `student` / `student123`
 
-### 2. Install Python dependencies
+### 2. Run scripts
+
+Use the pre-built `app` container to run any script:
 
 ```bash
-pip install -r requirements.txt
+# producer
+docker compose run --rm app python tasks/task1/producer.py "Hello"
+
+# consumer (Ctrl+C to stop)
+docker compose run --rm app python tasks/task1/consumer.py
 ```
+
+> **Local Python:** if you have Python 3 installed you can also run scripts directly after `pip install -r requirements.txt`.
 
 ### 3. Work through tasks in order
 
